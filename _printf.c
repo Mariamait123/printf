@@ -38,7 +38,7 @@ int _printf(const char *format, ...)
 			else if (*format == 's')
 			{
 				i = prints(va_arg(li, char *));
-				printed += i;
+				printed += (i - 1);
 			}
 		}
 		printed++;
@@ -47,15 +47,19 @@ int _printf(const char *format, ...)
 	return (printed);
 }
 /**
-  *print: prints buff
-  *@buff: input to be printed
-  *@i: memory space of buff
+  *print: prints c
+  *@c: input c
   *Return: 1
   */
 int print(char c)
 {
 	return (write(1, &c, 1));
 }
+/**
+  *print: prints s
+  *@s: input string
+  *Return: number of char
+  */
 int prints(char *s)
 {
 	int i = 0;
