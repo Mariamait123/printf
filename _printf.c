@@ -13,7 +13,7 @@ int _printf(const char *format, ...)
 	va_list li;
 	int printed = 0, i = 0;
 
-	if (!format || (format[0] == '%' && format[1] == '\0'))
+	if (!format)
 		return (-1);
 	va_start(li, format);
 	for (; *format; format++)
@@ -25,8 +25,6 @@ int _printf(const char *format, ...)
 		else
 		{
 			format++;
-			if (*format == '\0')
-				break;
 			if (*format == 'c')
 			{
 				print(va_arg(li, int));
