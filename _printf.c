@@ -12,14 +12,14 @@ int _printf(const char *format, ...)
 	int printed = 0, i = 0;
 	char c, *st;
 
-	if (format == NULL)
+	if (!format || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
 	va_start(li, format);
 	for (; *format; format++)
 	{
 		if (*format != '%')
 		{
-			write(1, format, 1);
+			print(format);
 		}
 		else
 		{
@@ -28,24 +28,38 @@ int _printf(const char *format, ...)
 				break;
 			if (*format == 'c')
 			{
-				c = va_arg(li, int);
-				write(1, &c, 1);
+				print(va_arg(li, int));
 			}
 			else if (*format == '%')
 			{
-				write(1, format, 1);
+				print(format);
 			}
 			else if (*format == 's')
 			{
-				st = va_arg(li, char *);
-				i = strlen(st);
-				write(1, st, i);
-				printed += i;
+				i = prints(st = va_arg(li, char *));
+				printed += (i) ;
 			}
 		}
-		if (*format != 's')
-			printed++;
+		printed++;
 	}
 	va_end(li);
 	return (printed);
+}
+/**
+  *print: prints buff
+  *@buff: input to be printed
+  *@i: memory space of buff
+  *Return: 1
+  */
+int print(char c)
+{
+	return (write(1, &c, 1));
+}
+int prints(char *s)
+{
+	int i = 0;
+
+	for (; s[i] != '\0'; i++)
+		print(s[i]);
+	return (i);
 }
