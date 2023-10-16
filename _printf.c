@@ -1,4 +1,6 @@
 #include "main.h"
+int print(char c);
+int prints(char *s);
 /**
   *_printf - prints string
   *@format: character string
@@ -10,7 +12,6 @@ int _printf(const char *format, ...)
 {
 	va_list li;
 	int printed = 0, i = 0;
-	char c, *st;
 
 	if (!format || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
@@ -19,7 +20,7 @@ int _printf(const char *format, ...)
 	{
 		if (*format != '%')
 		{
-			print(format);
+			print(*format);
 		}
 		else
 		{
@@ -32,12 +33,12 @@ int _printf(const char *format, ...)
 			}
 			else if (*format == '%')
 			{
-				print(format);
+				print(*format);
 			}
 			else if (*format == 's')
 			{
-				i = prints(st = va_arg(li, char *));
-				printed += (i) ;
+				i = prints(va_arg(li, char *));
+				printed += i;
 			}
 		}
 		printed++;
